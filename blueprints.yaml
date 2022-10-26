@@ -1,0 +1,36 @@
+name: Commerce Control
+slug: commerce-control
+type: plugin
+version: 0.1.0
+description: Dashboard for e-commerce and suscription orders
+icon: plug
+author:
+  name: vande
+  email: susannafm@gmail.com
+homepage: https://github.com/vandekul/grav-plugin-commerce-control
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/vandekul/grav-plugin-commerce-control/issues
+docs: https://github.com/vandekul/grav-plugin-commerce-control/blob/develop/README.md
+license: MIT
+
+dependencies:
+  - { name: grav, version: '>=1.6.0' }
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    text_var:
+      type: text
+      label: PLUGIN_COMMERCE_CONTROL.TEXT_VARIABLE
+      help: PLUGIN_COMMERCE_CONTROL.TEXT_VARIABLE_HELP
