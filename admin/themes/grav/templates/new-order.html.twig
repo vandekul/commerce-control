@@ -1,0 +1,30 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block titlebar %}
+    {% if not admin.route %}
+        {% if authorize(['admin.users', 'admin.super']) %}
+            <div class="button-bar">
+                <a class="button" href="commerce-control">
+                    <i class="fa fa-reply"></i> 
+                    {{ "PLUGIN_PAGE_COMMERCE_CONTROL.PAGE_CENTRAL"|t }}
+                </a>
+            </div>
+            <h1>
+                <i class="fa fa-fw fa-shopping-cart"></i>
+                {{ "PLUGIN_PAGE_COMMERCE_CONTROL.ADD_ORDER"|t }}
+            </h1>
+        {% else %}
+            <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|t }}</h1>
+        {% endif %}
+    {% else %}
+        <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|t }}</h1>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {{ page.header.newTextField|e }}
+
+    {{ page.content|raw }}
+    {% include "forms/form.html.twig" %}
+{% endblock %}

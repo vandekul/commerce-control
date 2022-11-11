@@ -1,0 +1,160 @@
+title: Customers
+description: Simple customer directory.
+type: flex-objects
+
+# Flex Configuration
+config:
+  # Administration Configuration
+  admin:
+    # Admin router (optional)
+    router:
+      path: '/customers'
+
+    # Admin menu (optional)
+    menu:
+      list:
+        hidden: false
+        route: '/customers'
+        title: Customers
+        icon: fa-user
+        # Authorization to collection admin
+        authorize: ['admin.customer.list', 'admin.super']
+        # Priority -10 .. 10 (highest goes up)
+        priority: 3
+
+    # Admin template type / folder
+    template: customers
+
+    # Permissions
+    permissions:
+      # Primary permissions
+      admin.customers:
+        type: crudpl
+        label: Customers
+    views:
+      # List view
+      list:
+        title: customers
+        fields:
+          name:
+            link: edit
+          surnames:
+            link: edit
+          email:
+            link: mailto
+
+
+      # Edit View
+      edit:
+        title:
+          template: '{{ object.name ?? ''Name'' }} {{ object.surnames ?? ''Surname'' }}'
+
+      # Preview View
+      preview:
+        enabled: false
+        route:
+          #template: '/plugins/flex-objects/directory:customers'
+
+      # Data Export
+      export:
+        enabled: true
+        method: 'jsonSerialize'
+        formatter:
+          class: 'Grav\Framework\File\Formatter\YamlFormatter'
+        filename: 'customers'
+
+  # Site Configuration
+  site:
+    templates:
+      collection:
+        # Lookup for the template layout files for collections of objects
+        paths:
+          - 'flex/{TYPE}/collection/{LAYOUT}{EXT}'
+      object:
+        # Lookup for the template layout files for objects
+        paths:
+          - 'flex/{TYPE}/object/{LAYOUT}{EXT}'
+      defaults:
+        # Default template {TYPE}; overridden by filename of this blueprint if template folder exists
+        type: customers
+        # Default template {LAYOUT}; can be overridden in render calls (usually Twig in templates)
+        layout: default
+
+  # Data Configuration
+  data:
+    # Object class to be used, allowing custom methods for the object
+    object: 'Grav\Common\Flex\Types\Generic\GenericObject'
+    # Collection class to be used, allowing custom methods for the collections
+    collection: 'Grav\Common\Flex\Types\Generic\GenericCollection'
+    # Index class to be used, works as a quick database-like lookup index
+    index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
+    storage:
+      # Storage class, use single file storage (does not support images and assets)
+      class: 'Grav\Framework\Flex\Storage\SimpleStorage'
+      options:
+        formatter:
+          # File formatter class, in this case the file is stored in markdown
+          class: 'Grav\Framework\File\Formatter\JsonFormatter'
+        # JSON file where all the objects will be stored
+        folder: user-data://flex-objects/customers.json
+    search:
+      # Search options
+      options:
+        contains: 1
+      # Fields to be searched
+      fields:
+        - surnames
+        - email
+
+form:
+  fields:
+    name:
+        name: name
+        label: Customer Name 
+        placeholder: Name 
+        autofocus: on
+        autocomplete: on
+        type: text
+        #validate: 
+          #required: true
+    surnames:
+        name: surnames
+        label: Customer Surnames 
+        placeholder: Surnames
+        autofocus: on
+        autocomplete: on
+        type: text
+    street:
+        name: street
+        label: Street 
+        placeholder: Street 
+        autofocus: on
+        autocomplete: on
+        type: text
+    zip:
+        name: zip
+        label: Zip 
+        placeholder: Zip 
+        autofocus: on
+        autocomplete: on
+        type: text
+    country:
+        name: country
+        label: Country 
+        placeholder: Country 
+        autofocus: on
+        autocomplete: on
+        type: text
+    phone:
+        name: phone
+        label: Phone 
+        placeholder: Phone Number 
+        autofocus: on
+        autocomplete: on
+        type: text
+    email:
+      name: email
+      label: Email
+      placeholder: Enter your email address
+      default: susanna@gmail.com
+      type: email

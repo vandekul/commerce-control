@@ -1,7 +1,5 @@
 ---
-title: Centre de Control
-robots: noindex,nofollow
-expires: 0
+published: true
 ---
 
 Ieeep! Comença la festa!

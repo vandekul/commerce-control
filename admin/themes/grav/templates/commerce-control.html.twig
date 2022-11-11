@@ -1,20 +1,65 @@
 {% extends 'partials/base.html.twig' %}
 
+{% if admin.route %}
+    {% set user = admin.data('commerce-control/' ~ admin.route) %}
+    {% set title = "PLUGIN_PAGE_COMMERCE_CONTROL.PAGE_CENTRAL"|t ~ ": " ~ admin.route|e %}
+{% else %}
+   {% set title = "PLUGIN_PAGE_COMMERCE_CONTROL.PAGE_CENTRAL"|t %}
+{% endif %}
+
 {% block titlebar %}
-    <h1><i class="fa fa-fw fa-bullseye"></i> {{ "PLUGIN_PAGE_COMMERCE_CONTROL.PAGE_CENTRAL"|t }}</h1>
+    {% if not admin.route %}
+        {% if authorize(['admin.users', 'admin.super']) %}
+            <div class="button-bar">
+                <a class="button" href="new-order">
+                    <i class="fa fa-plus"></i> 
+                    {{ "PLUGIN_PAGE_COMMERCE_CONTROL.ADD_ORDER"|t }}
+                </a>
+            </div>
+            <div class="button-bar">
+                <a class="button" href="flex-objects">
+                    <i class="fa fa-exclamation-circle"></i> 
+                    {{ "DIRECTORI"|t }}
+                </a>
+            </div>
+            <h1>
+                <i class="fa fa-fw fa-bullseye"></i>
+                {{ "PLUGIN_PAGE_COMMERCE_CONTROL.PAGE_CENTRAL"|t }}
+            </h1>
+        {% else %}
+            <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|t }}</h1>
+        {% endif %}
+    {% else %}
+        <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|t }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-<div>
-    <h1>Res d'error!!! </h1>
-    <div class="padding">
-        <p>
-            {{ page.content|raw }}
-        </p>
+
+    <div style="overflow-x:auto;">
+        <table>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Order Date</th>
+              <th>Detail</th>
+            </tr>
+            {% for p in get_quotations %}
+                
+            <tr>
+              <td> {{ p.data.id }} </td>
+              <td> {{ p.data.name }} {{ p.data.surnames }} </td>
+              <td> {{ p.data.status }} </td>
+              <td> {{ p.data.total }} </td>
+              <td> {{ p.data.order-date }} </td>
+              <td> Detail </td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
-</div>
+
+     {% include 'new-order.html.twig' with {}%}
 {% endblock %}
 
-{% block footer_section %}
-<br /><br /><br />
-{% endblock %}

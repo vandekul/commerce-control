@@ -4,3 +4,8 @@ en:
     TEXT_VARIABLE_HELP: Text to add to the top of a page
   PLUGIN_PAGE_COMMERCE_CONTROL:
     PAGE_CENTRAL: Control Center
+    ADD_ORDER: Add Order
+  PLUGIN_COMMERCE_CONTROL_ORDER:
+    CUSTOMER: Customer
+    ORDER: Order
+
